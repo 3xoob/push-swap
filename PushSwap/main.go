@@ -20,7 +20,7 @@ func main() {
 	for _, element := range elements {
 		num, err := strconv.Atoi(element)
 		if err != nil {
-			fmt.Println("ERROR: Invalid input, not an integer")
+			fmt.Println("Error")
 			return
 		}
 		primaryStack = append(primaryStack, num)
@@ -29,10 +29,10 @@ func main() {
 	var secondaryStack []int
 
 	if PSFunc.ContainsDuplicates(primaryStack) {
-		fmt.Println("ERROR: Duplicate numbers found")
+		fmt.Println("Error")
 		return
 	} else if PSFunc.IsSorted(primaryStack) {
-		fmt.Println("ERROR: Stack is already sorted")
+		fmt.Println("Error")
 		return
 	}
 

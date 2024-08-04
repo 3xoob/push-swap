@@ -23,7 +23,7 @@ func ParseInputValues(args []string) (*IntegerStack, error) {
 	for _, arg := range args {
 		value, err := strconv.Atoi(arg)
 		if err != nil {
-			return nil, fmt.Errorf("ERROR: Invalid integer '%v'", err)
+			return nil, fmt.Errorf("Error")
 		}
 		stackA.PushBack(value)
 	}
