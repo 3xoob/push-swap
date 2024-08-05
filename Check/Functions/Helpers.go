@@ -5,27 +5,29 @@ import (
 	"strconv"
 )
 
-type IntegerStack struct {
-	Values []int
+type NumStack struct {
+	Elements []int
 }
 
-func (stack *IntegerStack) IsSortedAscending() bool {
-	for i := 0; i < len(stack.Values)-1; i++ {
-		if stack.Values[i] > stack.Values[i+1] {
+// Check if the stack is sorted in ascending order
+func (s *NumStack) IsSortedAscending() bool {
+	for i := range s.Elements[:len(s.Elements)-1] {
+		if s.Elements[i] > s.Elements[i+1] {
 			return false
 		}
 	}
 	return true
 }
 
-func ParseInputValues(args []string) (*IntegerStack, error) {
-	stackA := &IntegerStack{}
-	for _, arg := range args {
-		value, err := strconv.Atoi(arg)
+// Parse string input and convert to an integer stack
+func ParseInputValues(args []string) (*NumStack, error) {
+	stack := &NumStack{}
+	for _, strVal := range args {
+		num, err := strconv.Atoi(strVal)
 		if err != nil {
 			return nil, fmt.Errorf("Error")
 		}
-		stackA.PushBack(value)
+		stack.Elements = append(stack.Elements, num)
 	}
-	return stackA, nil
+	return stack, nil
 }

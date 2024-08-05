@@ -1,32 +1,40 @@
 package PSFunc
 
-func ContainsDuplicates(stack []int) bool {
-	seenNumbers := make(map[int]bool)
-	for _, number := range stack {
-		if seenNumbers[number] {
-			return true
-		}
-		seenNumbers[number] = true
+func findMaxIndex(stack []int) int {
+	if len(stack) == 0 {
+		return -1
 	}
-	return false
+
+	maxIndex := 0
+	for i, num := range stack {
+		if num > stack[maxIndex] {
+			maxIndex = i
+		}
+	}
+	return maxIndex
 }
 
 func findMinIndex(stack []int) int {
-	minIdx := 0
-	for i := 1; i < len(stack); i++ {
-		if stack[i] < stack[minIdx] {
-			minIdx = i
+	if len(stack) == 0 {
+		return -1
+	}
+
+	minIndex := 0
+	for i, num := range stack {
+		if num < stack[minIndex] {
+			minIndex = i
 		}
 	}
-	return minIdx
+	return minIndex
 }
 
-func findMaxIndex(stack []int) int {
-	maxIdx := 0
-	for i := 1; i < len(stack); i++ {
-		if stack[i] > stack[maxIdx] {
-			maxIdx = i
+func ContainsDuplicates(stack []int) bool {
+	seen := make(map[int]struct{})
+	for _, num := range stack {
+		if _, found := seen[num]; found {
+			return true
 		}
+		seen[num] = struct{}{}
 	}
-	return maxIdx
+	return false
 }

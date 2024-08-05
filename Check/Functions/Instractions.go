@@ -4,47 +4,52 @@ import (
 	"fmt"
 )
 
-
-func (stack *IntegerStack) PushFront(value int) {
-	stack.Values = append([]int{value}, stack.Values...)
+// Push an element to the front of the stack
+func (s *NumStack) PushFront(value int) {
+	s.Elements = append([]int{value}, s.Elements...)
 }
 
-func (stack *IntegerStack) PushBack(value int) {
-	stack.Values = append(stack.Values, value)
+// Push an element to the back of the stack
+func (s *NumStack) PushBack(value int) {
+	s.Elements = append(s.Elements, value)
 }
 
-func (stack *IntegerStack) PopFront() (int, error) {
-	if len(stack.Values) == 0 {
+// Pop an element from the front of the stack
+func (s *NumStack) PopFront() (int, error) {
+	if len(s.Elements) == 0 {
 		return 0, fmt.Errorf("Error")
 	}
-	value := stack.Values[0]
-	stack.Values = stack.Values[1:]
+	value := s.Elements[0]
+	s.Elements = s.Elements[1:]
 	return value, nil
 }
 
-func (stack *IntegerStack) SwapTopTwo() error {
-	if len(stack.Values) < 2 {
+// Swap the top two elements of the stack
+func (s *NumStack) SwapTopTwo() error {
+	if len(s.Elements) < 2 {
 		return fmt.Errorf("Error")
 	}
-	stack.Values[0], stack.Values[1] = stack.Values[1], stack.Values[0]
+	topTwo := s.Elements[:2]
+	s.Elements[0], s.Elements[1] = topTwo[1], topTwo[0]
 	return nil
 }
 
-func (stack *IntegerStack) RotateUp() error {
-	if len(stack.Values) == 0 {
+// Rotate the stack upwards (move the first element to the last position)
+func (s *NumStack) RotateUp() error {
+	if len(s.Elements) == 0 {
 		return fmt.Errorf("Error")
 	}
-	value := stack.Values[0]
-	copy(stack.Values, stack.Values[1:])
-	stack.Values[len(stack.Values)-1] = value
+	firstValue := s.Elements[0]
+	s.Elements = append(s.Elements[1:], firstValue)
 	return nil
 }
 
-func (stack *IntegerStack) RotateDown() error {
-	if len(stack.Values) == 0 {
+// Rotate the stack downwards (move the last element to the first position)
+func (s *NumStack) RotateDown() error {
+	if len(s.Elements) == 0 {
 		return fmt.Errorf("Error")
 	}
-	value := stack.Values[len(stack.Values)-1]
-	stack.Values = append([]int{value}, stack.Values[:len(stack.Values)-1]...)
+	lastValue := s.Elements[len(s.Elements)-1]
+	s.Elements = append([]int{lastValue}, s.Elements[:len(s.Elements)-1]...)
 	return nil
 }

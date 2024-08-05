@@ -2,7 +2,7 @@ package CFunc
 
 import "fmt"
 
-func PerformInstruction(instruction string, stackA, stackB *IntegerStack) error {
+func PerformInstruction(instruction string, stackA, stackB *NumStack) error {
 	switch instruction {
 	case "sa":
 		return stackA.SwapTopTwo()
@@ -22,7 +22,7 @@ func PerformInstruction(instruction string, stackA, stackB *IntegerStack) error 
 	case "pb":
 		value, err := stackA.PopFront()
 		if err != nil {
-			return ffmt.Errorf("Error")
+			return fmt.Errorf("Error")
 		}
 		stackB.PushFront(value)
 	case "ra":

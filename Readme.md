@@ -74,7 +74,7 @@ OK
 
 ```sh
 $ ARG="4 67 3 87 23"; ./push-swap "$ARG" | wc -l
-6
+8
 
 $ ARG="4 67 3 87 23"; ./push-swap "$ARG" | ./checker "$ARG"
 OK
@@ -96,8 +96,8 @@ cd push-swap
 2. Build the executables:
 
 ```sh
-go build -o push-swap ./push-swap
-go build -o checker ./checker
+go build -o push-swap ./PushSwap
+go build -o checker ./Check
 ```
 
 ### Option 2: Build Using a Bash Script

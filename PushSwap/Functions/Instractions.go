@@ -1,66 +1,82 @@
 package PSFunc
 
-func pushToPrimaryStack(primaryStack, secondaryStack *[]int) {
-	if len(*secondaryStack) > 0 {
-		*primaryStack = append([]int{(*secondaryStack)[0]}, *primaryStack...)
-		*secondaryStack = (*secondaryStack)[1:]
+func pushToPrimaryStack(mainStack, auxStack *[]int) {
+	if len(*auxStack) == 0 {
+		return
 	}
+	topAux := (*auxStack)[0]
+	*mainStack = append([]int{topAux}, *mainStack...)
+	*auxStack = (*auxStack)[1:]
 }
 
-func pushToSecondaryStack(primaryStack, secondaryStack *[]int) {
-	if len(*primaryStack) > 0 {
-		*secondaryStack = append([]int{(*primaryStack)[0]}, *secondaryStack...)
-		*primaryStack = (*primaryStack)[1:]
+func pushToSecondaryStack(mainStack, auxStack *[]int) {
+	if len(*mainStack) == 0 {
+		return
 	}
+	topMain := (*mainStack)[0]
+	*auxStack = append([]int{topMain}, *auxStack...)
+	*mainStack = (*mainStack)[1:]
 }
 
-func swapPrimaryTopTwo(primaryStack *[]int) {
-	if len(*primaryStack) > 1 {
-		(*primaryStack)[0], (*primaryStack)[1] = (*primaryStack)[1], (*primaryStack)[0]
+func swapPrimaryTopTwo(mainStack *[]int) {
+	if len(*mainStack) < 2 {
+		return
 	}
+	firstElem, secondElem := (*mainStack)[0], (*mainStack)[1]
+	(*mainStack)[0], (*mainStack)[1] = secondElem, firstElem
 }
 
-func swapSecondaryTopTwo(secondaryStack *[]int) {
-	if len(*secondaryStack) > 1 {
-		(*secondaryStack)[0], (*secondaryStack)[1] = (*secondaryStack)[1], (*secondaryStack)[0]
+func swapSecondaryTopTwo(auxStack *[]int) {
+	if len(*auxStack) < 2 {
+		return
 	}
+	firstElem, secondElem := (*auxStack)[0], (*auxStack)[1]
+	(*auxStack)[0], (*auxStack)[1] = secondElem, firstElem
 }
 
-func swapTopTwoInBoth(primaryStack, secondaryStack *[]int) {
-	swapPrimaryTopTwo(primaryStack)
-	swapSecondaryTopTwo(secondaryStack)
+func swapTopTwoInBoth(mainStack, auxStack *[]int) {
+	swapPrimaryTopTwo(mainStack)
+	swapSecondaryTopTwo(auxStack)
 }
 
-func rotatePrimaryUp(primaryStack *[]int) {
-	if len(*primaryStack) > 1 {
-		*primaryStack = append((*primaryStack)[1:], (*primaryStack)[0])
+func rotatePrimaryUp(mainStack *[]int) {
+	if len(*mainStack) <= 1 {
+		return
 	}
+	firstElem := (*mainStack)[0]
+	*mainStack = append((*mainStack)[1:], firstElem)
 }
 
-func rotateSecondaryUp(secondaryStack *[]int) {
-	if len(*secondaryStack) > 1 {
-		*secondaryStack = append((*secondaryStack)[1:], (*secondaryStack)[0])
+func rotateSecondaryUp(auxStack *[]int) {
+	if len(*auxStack) <= 1 {
+		return
 	}
+	firstElem := (*auxStack)[0]
+	*auxStack = append((*auxStack)[1:], firstElem)
 }
 
-func rotateBothUp(primaryStack, secondaryStack *[]int) {
-	rotatePrimaryUp(primaryStack)
-	rotateSecondaryUp(secondaryStack)
+func rotateBothUp(mainStack, auxStack *[]int) {
+	rotatePrimaryUp(mainStack)
+	rotateSecondaryUp(auxStack)
 }
 
-func rotatePrimaryDown(primaryStack *[]int) {
-	if len(*primaryStack) > 1 {
-		*primaryStack = append([]int{(*primaryStack)[len(*primaryStack)-1]}, (*primaryStack)[:len(*primaryStack)-1]...)
+func rotatePrimaryDown(mainStack *[]int) {
+	if len(*mainStack) <= 1 {
+		return
 	}
+	lastElem := (*mainStack)[len(*mainStack)-1]
+	*mainStack = append([]int{lastElem}, (*mainStack)[:len(*mainStack)-1]...)
 }
 
-func rotateSecondaryDown(secondaryStack *[]int) {
-	if len(*secondaryStack) > 1 {
-		*secondaryStack = append([]int{(*secondaryStack)[len(*secondaryStack)-1]}, (*secondaryStack)[:len(*secondaryStack)-1]...)
+func rotateSecondaryDown(auxStack *[]int) {
+	if len(*auxStack) <= 1 {
+		return
 	}
+	lastElem := (*auxStack)[len(*auxStack)-1]
+	*auxStack = append([]int{lastElem}, (*auxStack)[:len(*auxStack)-1]...)
 }
 
-func rotateBothDown(primaryStack, secondaryStack *[]int) {
-	rotatePrimaryDown(primaryStack)
-	rotateSecondaryDown(secondaryStack)
+func rotateBothDown(mainStack, auxStack *[]int) {
+	rotatePrimaryDown(mainStack)
+	rotateSecondaryDown(auxStack)
 }

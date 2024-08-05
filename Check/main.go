@@ -17,7 +17,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	stackB := &CFunc.IntegerStack{}
+	stackB := &CFunc.NumStack{}
 
 	var instructions []string
 	for {
@@ -35,7 +35,7 @@ func main() {
 		}
 	}
 
-	if stackA.IsSortedAscending() && len(stackB.Values) == 0 {
+	if stackA.IsSortedAscending() && len(stackB.Elements) == 0 {
 		fmt.Println("OK")
 	} else {
 		fmt.Println("KO")
